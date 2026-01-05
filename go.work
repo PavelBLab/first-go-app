@@ -1,0 +1,6 @@
+go 1.25.5
+
+use (
+	./investment-calculator
+	./profit-calculator
+)

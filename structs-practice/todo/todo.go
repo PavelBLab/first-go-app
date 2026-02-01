@@ -1,10 +1,10 @@
 package todo
 
 import (
+	"encoding/json"
 	"errors"
 	"fmt"
 	"os"
-	"encoding/json"
 )
 
 type Todo struct {
@@ -35,4 +35,3 @@ func New(text string) (Todo, error) {
 		Text: text,
 	}, nil
 }
-

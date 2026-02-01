@@ -22,6 +22,8 @@ func (fm *FileManger) ReadLines() ([]string, error) {
 		return nil, errors.New("failed to open file")
 	}
 
+	defer file.Close()
+
 	scanner := bufio.NewScanner(file)
 
 	var lines []string
@@ -33,12 +35,9 @@ func (fm *FileManger) ReadLines() ([]string, error) {
 	err = scanner.Err()
 
 	if err != nil {
-		file.Close()
 		fmt.Println("Error reading file:", err)
 		return nil, errors.New("failed to read file")
 	}
-
-	file.Close()
 
 	return lines, nil
 }

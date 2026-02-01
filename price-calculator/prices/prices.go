@@ -56,13 +56,16 @@ func (job *TaxInclPriceJob) loadData() error {
 	return nil
 }
 
-func (job *TaxInclPriceJob) ProcessPrices(doneChan chan bool) {
-	job.loadData()
+func (job *TaxInclPriceJob) ProcessPrices(doneChan chan bool, errChan chan error) {
+	err := job.loadData()
 
-	//if err != nil {
-	//	fmt.Println("Error loading prices:", err)
-	//	return err
-	//}
+	//errChan <- errors.New("failed to load data")
+
+	if err != nil {
+		fmt.Println("Error loading prices:", err)
+		errChan <- err
+		return
+	}
 
 	result := make(map[string][]string)
 	taxRateKey := fmt.Sprintf("%.2f", job.taxRate)
@@ -76,12 +79,13 @@ func (job *TaxInclPriceJob) ProcessPrices(doneChan chan bool) {
 
 	dto := job.ToJson()
 
-	job.IOManager.WriteResults(dto)
+	err = job.IOManager.WriteResults(dto)
 
-	//if err != nil {
-	//	fmt.Println("Error writing results:", err)
-	//	return err
-	//}
+	if err != nil {
+		fmt.Println("Error writing results:", err)
+		errChan <- err
+		return
+	}
 
 	doneChan <- true
 }

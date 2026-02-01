@@ -21,7 +21,7 @@ func main() {
 
 	var appUser *user.User
 	appUser, err := user.New(firstName, lastName, birthdate)
-	
+
 	if err != nil {
 		fmt.Println("Error creating user:", err)
 		return
@@ -35,7 +35,6 @@ func main() {
 	appUser.ClearUserName()
 	appUser.OutputUserDetails()
 }
-
 
 func getUserData(promptText string) string {
 	fmt.Print(promptText)

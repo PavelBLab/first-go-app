@@ -1,9 +1,9 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 	"os"
-	"errors"
 )
 
 const fileName = "profit-calculator/profit_calculations.txt"
@@ -12,7 +12,7 @@ func main() {
 	var taxRate float64 = 25.8
 
 	revenue, err1 := getUserInput("Enter Revenue: ")
-	if 	err1 != nil {
+	if err1 != nil {
 		fmt.Println("Error reading revenue:", err1)
 		panic(err1)
 	}
@@ -55,7 +55,7 @@ func calculateProfit(revenue float64, costs float64, taxRate float64) (float64, 
 	return ebt, tax, ebtMargin, netProfit
 }
 
-func writeCalculationsToFile(ebt float64, tax float64, ebtMargin float64, netProfit float64	) {
+func writeCalculationsToFile(ebt float64, tax float64, ebtMargin float64, netProfit float64) {
 	var data string = fmt.Sprintf("Earnings Before Tax: %.2f\nTax: %.2f\nEarnings Before Tax Margin (%%): %.2f\nNet Profit: %.2f\n", ebt, tax, ebtMargin, netProfit)
 	var dataBytes []byte = []byte(data)
 	os.WriteFile(fileName, dataBytes, 0644)

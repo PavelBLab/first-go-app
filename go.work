@@ -11,4 +11,6 @@ use (
 	./arrays
 	./maps
 	./functions
+	./price-calculator
+	./concurrency
 )

@@ -23,7 +23,7 @@ func main() {
 	fmt.Scan(&expectedReturnRate)
 
 	futureValue, futureRealValue := calculateFutureValues(investmentAmount, expectedReturnRate, years)
-  calculateFutureValues(investmentAmount, expectedReturnRate, years)
+	calculateFutureValues(investmentAmount, expectedReturnRate, years)
 	fmt.Println("Real Rate Calculation:", calculateRealRate(expectedReturnRate, inflationRate))
 	fmt.Println("Future Value:", futureValue)
 	fmt.Println("Future Real Value:", futureRealValue)

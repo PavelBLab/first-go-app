@@ -8,9 +8,7 @@ func main() {
 	var agePointer *int
 	agePointer = &age
 
-
-
-	fmt.Println("Age:", agePointer) // memory address
+	fmt.Println("Age:", agePointer)  // memory address
 	fmt.Println("Age:", *agePointer) // dereferencing
 
 	getAdultYears(agePointer)

@@ -1,33 +1,32 @@
 package user
 
 import (
+	"errors"
 	"fmt"
 	"time"
-	"errors"
 )
-
 
 type User struct {
 	firstName string
 	lastName  string
 	birthdate string
-	age int
+	age       int
 	createdAt time.Time
 }
 
 type Admin struct {
-	User // embedding
-	email string
+	User     // embedding
+	email    string
 	password string
 }
 
 func New(firstName, lastName, birthdate string) (*User, error) {
 	if firstName == "" || lastName == "" || birthdate == "" {
 		//panic("All fields are required to create a new user")
-		return nil, errors.New("missing required user fields")	
+		return nil, errors.New("missing required user fields")
 	}
-	
-	return &User {
+
+	return &User{
 		firstName: firstName,
 		lastName:  lastName,
 		birthdate: birthdate,
@@ -37,7 +36,7 @@ func New(firstName, lastName, birthdate string) (*User, error) {
 
 func NewAdmin(email, password string) Admin {
 	return Admin{
-		email: email,
+		email:    email,
 		password: password,
 		User: User{
 			firstName: "ADMIN",

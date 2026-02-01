@@ -1,6 +1,14 @@
 go 1.25.5
 
 use (
+	./bank
 	./investment-calculator
 	./profit-calculator
+	./pointers
+	./structs
+	./structs-practice
+	./empty-interfaces
+	./arrays
+	./maps
+	./functions
 )

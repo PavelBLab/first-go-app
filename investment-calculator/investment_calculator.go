@@ -27,7 +27,6 @@ func main() {
 	fmt.Println("Real Rate Calculation:", calculateRealRate(expectedReturnRate, inflationRate))
 	fmt.Println("Future Value:", futureValue)
 	fmt.Println("Future Real Value:", futureRealValue)
-
 }
 
 func calculateFutureValues(principal float64, rate float64, years float64) (float64, float64) {

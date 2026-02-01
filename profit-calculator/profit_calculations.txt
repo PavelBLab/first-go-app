@@ -1,0 +1,4 @@
+Earnings Before Tax: 8000.00
+Tax: 2064.00
+Earnings Before Tax Margin (%): 80.00
+Net Profit: 5936.00

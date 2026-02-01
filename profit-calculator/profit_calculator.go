@@ -2,17 +2,31 @@ package main
 
 import (
 	"fmt"
+	"os"
+	"errors"
 )
 
+const fileName = "profit-calculator/profit_calculations.txt"
+
 func main() {
-	var revenue float64
-	var costs float64
 	var taxRate float64 = 25.8
 
-	revenue = getUserInput("Enter Revenue: ")
-	costs = getUserInput("Enter Costs: ")
+	revenue, err1 := getUserInput("Enter Revenue: ")
+	if 	err1 != nil {
+		fmt.Println("Error reading revenue:", err1)
+		panic(err1)
+	}
+
+	costs, err2 := getUserInput("Enter Costs: ")
+
+	if err2 != nil {
+		fmt.Println("Error reading costs:", err2)
+		panic(err2)
+	}
 
 	ebt, tax, ebtMargin, netProfit := calculateProfit(revenue, costs, taxRate)
+
+	writeCalculationsToFile(ebt, tax, ebtMargin, netProfit)
 
 	fmt.Println("Earnings Before Tax:", ebt)
 	fmt.Printf("Tax: %.2f\n", tax)
@@ -20,11 +34,16 @@ func main() {
 	fmt.Printf("Net Profit: %.2f\n", netProfit)
 }
 
-func getUserInput(prompt string) float64 {
+func getUserInput(prompt string) (float64, error) {
 	var value float64
 	fmt.Print(prompt)
 	fmt.Scan(&value)
-	return value
+
+	if value <= 0 {
+		return 0.0, errors.New("Input must be a positive number.")
+	}
+
+	return value, nil
 }
 
 func calculateProfit(revenue float64, costs float64, taxRate float64) (float64, float64, float64, float64) {
@@ -34,4 +53,10 @@ func calculateProfit(revenue float64, costs float64, taxRate float64) (float64, 
 	netProfit := ebt - tax
 
 	return ebt, tax, ebtMargin, netProfit
+}
+
+func writeCalculationsToFile(ebt float64, tax float64, ebtMargin float64, netProfit float64	) {
+	var data string = fmt.Sprintf("Earnings Before Tax: %.2f\nTax: %.2f\nEarnings Before Tax Margin (%%): %.2f\nNet Profit: %.2f\n", ebt, tax, ebtMargin, netProfit)
+	var dataBytes []byte = []byte(data)
+	os.WriteFile(fileName, dataBytes, 0644)
 }
